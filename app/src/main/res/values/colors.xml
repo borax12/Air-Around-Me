@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="homescreen_background">#ffff625b</color>
+    <color name="air_around_button_color">#FFFFFF</color>
+</resources>
