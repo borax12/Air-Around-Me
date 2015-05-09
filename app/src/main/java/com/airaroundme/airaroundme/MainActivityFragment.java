@@ -26,12 +26,6 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         mainView = (LinearLayout)inflater.inflate(R.layout.fragment_main, container, false);
         air_around_me_button = (TextView)mainView.findViewById(R.id.air_around_button);
-        return mainView;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         final Intent intent = new Intent(getActivity(),SensorResponseActivity.class);
 
         air_around_me_button.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +34,12 @@ public class MainActivityFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+        
+        return mainView;
+    }
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }
