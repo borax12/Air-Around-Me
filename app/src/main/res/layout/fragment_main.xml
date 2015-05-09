@@ -21,7 +21,8 @@
             android:text="@string/air_around_me"
             android:textSize="@dimen/air_around_button_size"
             android:layout_marginTop="@dimen/margin_top"
-            android:textColor="@color/air_around_button_color"/>
+            android:textColor="@color/air_around_button_color"
+            android:clickable="true" />
     </LinearLayout>
 
 </LinearLayout>
