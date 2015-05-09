@@ -3,4 +3,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="air_around_me">Air Around Me</string>
+    <string name="sensor_response_field">FIELD</string>
+    <string name="sensor_response_value">VALUE</string>
 </resources>

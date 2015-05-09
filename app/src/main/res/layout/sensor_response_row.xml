@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/sensor_response_padding_row">
+    <TextView
+        android:id="@+id/sensor_response_row_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sensor_response_field"
+        android:text="@string/sensor_response_field"
+        android:textColor="@color/sensor_response_field"/>
+
+    <TextView
+        android:layout_marginLeft="@dimen/sensor_response_row_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sensor_response_field"
+        android:text="@string/sensor_response_value"
+        android:textColor="@color/sensor_response_field"
+        android:id="@+id/sensor_response_row_value" />
+
+</LinearLayout>

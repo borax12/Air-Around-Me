@@ -1,6 +1,10 @@
 package com.airaroundme.airaroundme;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -17,8 +22,10 @@ public class MainActivityFragment extends Fragment {
 
     private LinearLayout mainView;
     private TextView air_around_me_button;
+    private Context mContext;
 
     public MainActivityFragment() {
+        mContext=getActivity();
     }
 
     @Override
@@ -31,11 +38,27 @@ public class MainActivityFragment extends Fragment {
         air_around_me_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().startActivity(intent);
+                // check if you are connected or not
+                if(isConnected()){
+                    getActivity().startActivity(intent);
+                }
+               else
+                {
+                    Toast.makeText(mContext,"You are offline",Toast.LENGTH_SHORT);
+                }
             }
         });
-        
+
         return mainView;
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
     }
 
     @Override

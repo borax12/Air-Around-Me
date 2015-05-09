@@ -1,4 +1,4 @@
-package com.airaroundme.airaroundme;
+package com.airaroundme.airaroundme.objects;
 
 public class SensorData {
 

@@ -2,4 +2,6 @@
 <resources>
     <color name="homescreen_background">#ffff625b</color>
     <color name="air_around_button_color">#FFFFFF</color>
+    <color name="sensor_response">#ff6287ff</color>
+    <color name="sensor_response_field">#FFFFFF</color>
 </resources>
