@@ -66,6 +66,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
         }catch(ClientProtocolException e){
             e.printStackTrace();
         } catch (IOException e){
+            Log.d("HttpAsynTask",e.getLocalizedMessage());
             e.printStackTrace();
         }
         return builder.toString();

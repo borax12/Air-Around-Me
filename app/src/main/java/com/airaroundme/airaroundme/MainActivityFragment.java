@@ -25,8 +25,10 @@ public class MainActivityFragment extends Fragment {
     private Context mContext;
 
     public MainActivityFragment() {
-        mContext=getActivity();
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +46,7 @@ public class MainActivityFragment extends Fragment {
                 }
                else
                 {
-                    Toast.makeText(mContext,"You are offline",Toast.LENGTH_SHORT);
+                    Toast.makeText(mContext,"You are offline",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -64,5 +66,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getActivity();
     }
 }
