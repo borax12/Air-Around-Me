@@ -4,4 +4,5 @@
     <color name="air_around_button_color">#FFFFFF</color>
     <color name="sensor_response">#ff6287ff</color>
     <color name="sensor_response_field">#FFFFFF</color>
+    <color name="material_loader_color">#FFFFFF</color>
 </resources>
