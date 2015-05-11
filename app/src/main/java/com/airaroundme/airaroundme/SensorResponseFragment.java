@@ -2,12 +2,15 @@ package com.airaroundme.airaroundme;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.airaroundme.airaroundme.adapters.SensorResponseAdapter;
 import com.airaroundme.airaroundme.asyncTasks.HttpAsyncTask;
@@ -63,21 +66,17 @@ public class SensorResponseFragment extends Fragment {
                     sensor_response_listview.setAdapter(adapter);
                 }
                 else{
-                    Thread thread = new Thread(){
+
+                    Handler handler = new Handler(Looper.getMainLooper());
+
+                    handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                           try{
-                               synchronized (this) {
-                                   wait(2000);
-                               }
-                           }
-                           catch (InterruptedException e){
-                               //TODO
-                           }
+                            // Run your task here
+                            Toast.makeText(mContext,"Couldnt connect to Server",Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
                         }
-                    };
-
-                    thread.start();
+                    }, 2000 );
                 }
 
             }
