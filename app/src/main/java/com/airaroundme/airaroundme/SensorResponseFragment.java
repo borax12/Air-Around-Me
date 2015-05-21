@@ -11,15 +11,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.airaroundme.airaroundme.adapters.SensorResponseAdapter;
 import com.airaroundme.airaroundme.asyncTasks.HttpAsyncTask;
 import com.airaroundme.airaroundme.constants.Constants;
 import com.airaroundme.airaroundme.interfaces.AsyncResponse;
-import com.airaroundme.airaroundme.objects.SensorData;
 import com.airaroundme.airaroundme.objects.Station;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
@@ -32,18 +29,14 @@ import java.util.TreeMap;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SensorResponseFragment extends Fragment {
+public class SensorResponseFragment extends Fragment implements LocationListener{
 
 
     private RelativeLayout mainView;
-    private ListView sensor_response_listview;
-    private SensorResponseAdapter adapter;
     private Context mContext;
     private String jsonStr;
-    private SensorData data;
     private CircularProgressView progressView;
     private LocationManager mLocationManager;
-    private LocationListener mLocationListener;
     private List<Station> stationList;
     private int SIZE=3;
     private TreeMap<Float,Station> stationToDistance = new TreeMap<Float,Station>();
@@ -68,6 +61,18 @@ public class SensorResponseFragment extends Fragment {
         stationList.add(stationBTM);
         stationList.add(stationPeenya);
         stationList.add(stationBSSW);
+
+        Location location = getCurrentLocation();
+        if(location!=null){
+            chooseNearestStation(location);
+        }
+    }
+
+    private Location getCurrentLocation() {
+        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,
+                0, this);
+        return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 
     @Override
@@ -75,55 +80,29 @@ public class SensorResponseFragment extends Fragment {
                              Bundle savedInstanceState) {
         mContext = getActivity();
         mainView = (RelativeLayout) inflater.inflate(R.layout.fragment_sensor_response, container, false);
-        sensor_response_listview = (ListView) mainView.findViewById(R.id.sensor_response_listview);
         progressView = (CircularProgressView) mainView.findViewById(R.id.progress_view);
         progressView.setVisibility(View.VISIBLE);
         progressView.startAnimation();
-        chooseNearestStation();
+
         return mainView;
     }
 
-    public void chooseNearestStation() {
-        mLocationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(final Location location) {
-                //your code here
-                Double currentLat = location.getLatitude();
-                Double currentLong = location.getLongitude();
+    public void chooseNearestStation(Location location) {
+        Double currentLat = location.getLatitude();
+        Double currentLong = location.getLongitude();
 
-                float results[] = new float[2];
+        float results[] = new float[2];
 
-                for(Station station:stationList){
-                    Location.distanceBetween(currentLat, currentLong, station.getLatitude(), station.getLongitude(), results);
-                    stationToDistance.put(results[0],station);
-                }
+        for(Station station:stationList){
+            Location.distanceBetween(currentLat, currentLong, station.getLatitude(), station.getLongitude(), results);
+            stationToDistance.put(results[0],station);
+        }
 
-                Map.Entry<Float,Station> entry = stationToDistance.firstEntry();
+        Map.Entry<Float,Station> entry = stationToDistance.firstEntry();
 
-                mStation = entry.getValue();
+        mStation = entry.getValue();
 
-                getResponseFromSensor();
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,
-                0, mLocationListener);
-
+        getResponseFromSensor();
 
     }
 
@@ -155,9 +134,29 @@ public class SensorResponseFragment extends Fragment {
         String urlBuilder = Constants.baseUrl;
         urlBuilder =urlBuilder.concat(""+mStation.getStationId()+"?d=21%2F05%2F2015&h=23");
         httpAsyncTask.execute(urlBuilder);
-
-
     }
 
 
+    @Override
+    public void onLocationChanged(Location location) {
+
+        if(location!=null){
+            mLocationManager.removeUpdates(this);
+        }
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
