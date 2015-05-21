@@ -5,5 +5,6 @@ package com.airaroundme.airaroundme.constants;
  */
 public class Constants {
 
+    public static String baseUrl = "http://aqi.iitk.ac.in:9000/metrics/station/";
     public static String urlSensor = "http://192.168.1.4:8080/Air_Around_Me/Sensor";
 }
