@@ -7,4 +7,5 @@
     <dimen name="sensor_response_field">25sp</dimen>
     <dimen name="sensor_response_padding_row">20dp</dimen>
     <dimen name="sensor_response_row_margin">20dp</dimen>
+    <dimen name="air_button_bottom_margin">100dp</dimen>
 </resources>
