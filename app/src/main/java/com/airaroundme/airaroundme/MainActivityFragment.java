@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -21,7 +23,7 @@ import android.widget.Toast;
 public class MainActivityFragment extends Fragment {
 
     private RelativeLayout mainView;
-    private TextView air_around_me_button;
+    private Button air_around_me_button;
     private Context mContext;
 
     public MainActivityFragment() {
@@ -34,7 +36,10 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = (RelativeLayout)inflater.inflate(R.layout.fragment_main, container, false);
-        air_around_me_button = (TextView)mainView.findViewById(R.id.air_around_button);
+        air_around_me_button = (Button)mainView.findViewById(R.id.air_around_button);
+        Animation animation = new TranslateAnimation(0,0,300f,0);
+        animation.setDuration(1000);
+        air_around_me_button.setAnimation(animation);
         final Intent intent = new Intent(getActivity(),SensorResponseActivity.class);
 
         air_around_me_button.setOnClickListener(new View.OnClickListener() {
