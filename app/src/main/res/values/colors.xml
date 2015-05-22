@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="homescreen_background">#ffff625b</color>
+    <color name="homescreen_background">#ff373737</color>
     <color name="air_around_button_color">#FFFFFF</color>
     <color name="sensor_response">#ff6287ff</color>
     <color name="sensor_response_field">#FFFFFF</color>

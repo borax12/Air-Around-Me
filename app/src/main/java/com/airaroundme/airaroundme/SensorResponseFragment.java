@@ -41,6 +41,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private int SIZE=3;
     private TreeMap<Float,Station> stationToDistance = new TreeMap<Float,Station>();
     private Station mStation;
+    private boolean firstTime=true;
 
 
     public SensorResponseFragment() {
@@ -62,17 +63,12 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         stationList.add(stationPeenya);
         stationList.add(stationBSSW);
 
-        Location location = getCurrentLocation();
-        if(location!=null){
-            chooseNearestStation(location);
-        }
+        getCurrentLocation();
     }
 
-    private Location getCurrentLocation() {
+    public void getCurrentLocation() {
         mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,
-                0, this);
-        return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,this,null);
     }
 
     @Override
@@ -88,6 +84,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     }
 
     public void chooseNearestStation(Location location) {
+
+        firstTime=false;
         Double currentLat = location.getLatitude();
         Double currentLong = location.getLongitude();
 
@@ -139,10 +137,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
     @Override
     public void onLocationChanged(Location location) {
-
-        if(location!=null){
-            mLocationManager.removeUpdates(this);
-        }
+        if(firstTime)
+            chooseNearestStation(location);
     }
 
     @Override

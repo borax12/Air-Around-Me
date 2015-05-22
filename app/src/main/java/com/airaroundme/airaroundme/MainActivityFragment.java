@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +20,7 @@ import android.widget.Toast;
  */
 public class MainActivityFragment extends Fragment {
 
-    private LinearLayout mainView;
+    private RelativeLayout mainView;
     private TextView air_around_me_button;
     private Context mContext;
 
@@ -33,7 +33,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mainView = (LinearLayout)inflater.inflate(R.layout.fragment_main, container, false);
+        mainView = (RelativeLayout)inflater.inflate(R.layout.fragment_main, container, false);
         air_around_me_button = (TextView)mainView.findViewById(R.id.air_around_button);
         final Intent intent = new Intent(getActivity(),SensorResponseActivity.class);
 
