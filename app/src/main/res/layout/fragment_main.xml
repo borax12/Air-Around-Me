@@ -31,7 +31,8 @@
             android:textSize="@dimen/air_around_button_size"
             android:textColor="@color/air_around_button_color"
             android:clickable="true"
-            android:background="@drawable/transparent_stroke_button"/>
+            android:background="@drawable/transparent_stroke_button"
+            android:elevation="0dp" />
     </LinearLayout>
 
 </RelativeLayout>
