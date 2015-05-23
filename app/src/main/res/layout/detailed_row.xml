@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/row_padding"
+    android:background="@color/material_blue_grey_800">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="@dimen/detailed_circle"
+            android:layout_height="@dimen/detailed_circle"
+            android:background="@drawable/circle"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/parameter_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="21"
+                android:textColor="@color/screen_text_inverse"
+                android:textSize="@dimen/air_quality_value"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/parameter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEST"
+            android:textSize="@dimen/air_quality_around_me_line"
+            android:textColor="@color/main_screen_text"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detailed_circle"
+            android:text="@string/update_on_text"
+            android:textSize="@dimen/air_quality_value"
+            android:gravity="center_vertical|right"
+            android:textColor="@color/main_screen_text"
+            />
+        <TextView
+            android:id="@+id/row_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21 Feb 2015"
+            android:textSize="@dimen/air_quality_around_me_line"
+            android:layout_gravity="right"
+            android:textColor="@color/main_screen_text"
+            />
+    </LinearLayout>
+
+</LinearLayout>

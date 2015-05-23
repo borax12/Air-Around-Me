@@ -7,4 +7,5 @@
     <color name="material_loader_color">#FFFFFF</color>
     <color name="air_button_clicked">#6479fff8</color>
     <color name="main_screen_text">#FFFFFF</color>
+    <color name="screen_text_inverse">#000000</color>
 </resources>

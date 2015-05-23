@@ -16,4 +16,6 @@
     <dimen name="first_screen_margin_left">30dp</dimen>
     <dimen name="loader_margin_bottom">20dp</dimen>
     <dimen name="air_quality_value">18sp</dimen>
+    <dimen name="detailed_circle">60dp</dimen>
+    <dimen name="row_padding">10dp</dimen>
 </resources>
