@@ -31,17 +31,28 @@ public class MainActivityFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Animation animation = new TranslateAnimation(0,0,300f,0);
+        animation.setDuration(1000);
+        if(air_around_me_button!=null){
+            air_around_me_button.setAnimation(animation);
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = (RelativeLayout)inflater.inflate(R.layout.fragment_main, container, false);
         air_around_me_button = (Button)mainView.findViewById(R.id.air_around_button);
+        final Intent intent = new Intent(getActivity(),SensorResponseActivity.class);
         Animation animation = new TranslateAnimation(0,0,300f,0);
         animation.setDuration(1000);
-        air_around_me_button.setAnimation(animation);
-        final Intent intent = new Intent(getActivity(),SensorResponseActivity.class);
-
+        if(air_around_me_button!=null){
+            air_around_me_button.setAnimation(animation);
+        }
         air_around_me_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

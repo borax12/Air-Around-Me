@@ -181,9 +181,26 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private void setUpViews(FetchedData data) {
 
         float scaleFactor = Float.parseFloat(data.getAqi().getValue())/500.0f;
-
-        airQualityTextValue.setText(data.getAqi().getRemark().toUpperCase());
+        String remark = data.getAqi().getRemark();
+        airQualityTextValue.setText(remark.toUpperCase());
         airQualityValue.setText(data.getAqi().getValue());
+
+        switch (remark){
+            case "Good": proTipText.setText("Go take a walk");
+                break;
+            case "Satisfactory": proTipText.setText("Minor Breathing discomfort for Sensitive People");
+                break;
+            case "Moderate": proTipText.setText("Lungs Disease Patients beware");
+                break;
+            case "Poor": proTipText.setText("Breathing discomfort on Prolonged Exposure");
+                break;
+            case "Very Poor": proTipText.setText("Respiratory Illness on Prolonged Exposure");
+                break;
+            case "Severe": proTipText.setText("Time to get a Gas Mask");
+                break;
+
+        }
+
         airQualityTextValue.setVisibility(View.VISIBLE);
         int newWidth = 100+ (int) (aqiBar.getWidth()*scaleFactor);
         int originalHeight = aqiBar.getHeight();
