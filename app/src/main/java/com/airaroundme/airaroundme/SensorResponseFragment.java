@@ -129,8 +129,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
             }
         });
-        String urlBuilder = Constants.baseUrl;
-        urlBuilder =urlBuilder.concat(""+mStation.getStationId()+"?d=21%2F05%2F2015&h=23");
+        String urlBuilder = Constants.urlSensor;
+        urlBuilder =urlBuilder.concat("?stationId="+mStation.getStationId());
         httpAsyncTask.execute(urlBuilder);
     }
 
