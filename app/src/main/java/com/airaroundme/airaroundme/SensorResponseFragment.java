@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,7 +66,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private LinearLayout proTipContainer;
     private TextView proTipBulb;
     private TextView proTipText;
-    private RelativeLayout moreButton;
+    private Button moreButton;
+    private Button predictionButton;
 
     public SensorResponseFragment() {
 
@@ -96,7 +98,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             chooseNearestStation();
         }
         else{
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
     }
 
@@ -117,13 +119,16 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         proTipContainer = (LinearLayout) mainView.findViewById(R.id.pro_tip);
         proTipBulb = (TextView) mainView.findViewById(R.id.pro_tip_bulb);
         proTipText = (TextView) mainView.findViewById(R.id.pro_tip_text);
-        moreButton = (RelativeLayout) mainView.findViewById(R.id.more_button);
+        moreButton = (Button) mainView.findViewById(R.id.more_button);
+        predictionButton = (Button) mainView.findViewById(R.id.prediction_button);
 
 
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
         airQualityLine.setTypeface(font);
         airQualityValue.setTypeface(font);
         proTipText.setTypeface(font);
+        moreButton.setTypeface(font);
+        predictionButton.setTypeface(font);
 
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Medium.ttf");
         airQualityTextValue.setTypeface(font);
@@ -231,7 +236,9 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         proTipContainer.setAnimation(animation);
 
         moreButton.setVisibility(View.VISIBLE);
+        predictionButton.setVisibility(View.VISIBLE);
         moreButton.setAnimation(animation);
+        predictionButton.setAnimation(animation);
 
         final Intent intent = new Intent(getActivity(),DetailedActivity.class);
          Metrics[] valueArray = data.getMetrics();

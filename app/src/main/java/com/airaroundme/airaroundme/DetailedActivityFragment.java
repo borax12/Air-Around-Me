@@ -44,7 +44,7 @@ public class DetailedActivityFragment extends Fragment {
         mainView.setBackgroundColor(Color.parseColor(bgColor));
         listView = (ListView)mainView.findViewById(R.id.detailed_list);
         leftInAnimationAdapter.setAbsListView(listView);
-        leftInAnimationAdapter.getViewAnimator().setAnimationDurationMillis(1000);
+        leftInAnimationAdapter.getViewAnimator().setAnimationDurationMillis(800);
         listView.setAdapter(leftInAnimationAdapter);
         return mainView;
     }

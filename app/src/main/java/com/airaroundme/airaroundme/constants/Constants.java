@@ -5,4 +5,5 @@ package com.airaroundme.airaroundme.constants;
  */
 public class Constants {
     public static String urlSensor = "http://10.14.121.19:8080/AirAroundMe/Sensor";
+    public static String predictionSensor = "http://10.14.121.19:8080/AirAroundMe/Sensor/Predict";
 }

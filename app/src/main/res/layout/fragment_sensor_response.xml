@@ -105,24 +105,37 @@
         </LinearLayout>
 
     </LinearLayout>
-    <RelativeLayout
-        android:id="@+id/more_button"
-        android:layout_centerHorizontal="true"
-        android:layout_width="@dimen/more_circle"
-        android:layout_height="@dimen/more_circle"
-        android:background="@drawable/circle"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/loader_margin_bottom"
-        android:padding="5dp"
-        android:visibility="gone">
-        <TextView
-            android:id="@+id/parameter_value"
+        android:layout_marginBottom="@dimen/loader_margin_bottom">
+        <Button
+            android:id="@+id/more_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="more"
-            android:textColor="@color/screen_text_inverse"
-            android:textSize="@dimen/more_circle_text"/>
-    </RelativeLayout>
+            android:layout_height="@dimen/more_button_size"
+            android:padding="@dimen/response_buttons_text_padding"
+            android:text="MORE INFO >"
+            android:textSize="@dimen/air_around_button_text_size"
+            android:textColor="@color/air_around_button_color"
+            android:clickable="true"
+            android:background="@drawable/transparent_stroke_button"
+            android:elevation="0dp"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/prediction_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/more_button_size"
+            android:padding="@dimen/response_buttons_text_padding"
+            android:text="TOMORROW?"
+            android:textSize="@dimen/air_around_button_text_size"
+            android:textColor="@color/air_around_button_color"
+            android:clickable="true"
+            android:background="@drawable/transparent_stroke_button"
+            android:layout_marginLeft="10dp"
+            android:elevation="0dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
 </RelativeLayout>
