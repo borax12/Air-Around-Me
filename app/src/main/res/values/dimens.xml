@@ -11,4 +11,6 @@
     <dimen name="button_text_padding">10dp</dimen>
     <dimen name="button_radious">6dp</dimen>
     <dimen name="air_around_button_text_size">15sp</dimen>
+    <dimen name="air_quality_around_me_line">22sp</dimen>
+    <dimen name="Air_around_me_quality_size">24sp</dimen>
 </resources>

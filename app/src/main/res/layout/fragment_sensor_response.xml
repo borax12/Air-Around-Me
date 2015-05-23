@@ -17,9 +17,24 @@
         app:cpv_color="@color/material_loader_color"
         android:layout_centerInParent="true"
         android:visibility="gone" />
-    <ListView
-        android:id="@+id/sensor_response_listview"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+        <TextView
+            android:id="@+id/air_quality_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/air_around_me_line"
+            android:textSize="@dimen/air_quality_around_me_line"
+            android:textColor="@color/main_screen_text"/>
+        <TextView
+            android:id="@+id/air_quality_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Undefined"
+            android:textSize="@dimen/Air_around_me_quality_size"
+            android:textColor="@color/main_screen_text"/>
+    </LinearLayout>
 </RelativeLayout>

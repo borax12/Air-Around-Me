@@ -5,4 +5,5 @@
     <string name="air_around_me">Air Around Me</string>
     <string name="sensor_response_field">FIELD</string>
     <string name="sensor_response_value">VALUE</string>
+    <string name="air_around_me_line">Air Quality around me is</string>
 </resources>

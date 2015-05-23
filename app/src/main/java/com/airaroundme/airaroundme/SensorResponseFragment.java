@@ -1,6 +1,7 @@
 package com.airaroundme.airaroundme;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,13 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airaroundme.airaroundme.asyncTasks.HttpAsyncTask;
 import com.airaroundme.airaroundme.constants.Constants;
 import com.airaroundme.airaroundme.interfaces.AsyncResponse;
+import com.airaroundme.airaroundme.objects.FetchedData;
 import com.airaroundme.airaroundme.objects.Station;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +46,11 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private TreeMap<Float,Station> stationToDistance = new TreeMap<Float,Station>();
     private Station mStation;
     private boolean firstTime=true;
-
+    private FetchedData data;
+    private TextView airQualityLine;
+    private TextView airQualityTextValue;
+    private Typeface font;
+    private Location mLocation;
 
     public SensorResponseFragment() {
 
@@ -68,7 +76,13 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
     public void getCurrentLocation() {
         mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,this,null);
+        mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(mLocation!=null){
+            chooseNearestStation();
+        }
+        else{
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
+        }
     }
 
     @Override
@@ -80,14 +94,21 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         progressView.setVisibility(View.VISIBLE);
         progressView.startAnimation();
 
+        airQualityLine =(TextView) mainView.findViewById(R.id.air_quality_line);
+        airQualityTextValue = (TextView)mainView.findViewById(R.id.air_quality_text);
+
+        font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
+        airQualityLine.setTypeface(font);
+        font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Regular.ttf");
+        airQualityTextValue.setTypeface(font);
         return mainView;
     }
 
-    public void chooseNearestStation(Location location) {
+    public void chooseNearestStation() {
 
         firstTime=false;
-        Double currentLat = location.getLatitude();
-        Double currentLong = location.getLongitude();
+        Double currentLat = mLocation.getLatitude();
+        Double currentLong = mLocation.getLongitude();
 
         float results[] = new float[2];
 
@@ -109,9 +130,11 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             @Override
             public void processFinish(Object output) {
                 jsonStr = (String)output;
+                data = new Gson().fromJson(jsonStr,FetchedData.class);
 
                 if(jsonStr!=null){
                     progressView.setVisibility(View.GONE);
+                    setUpViews(data);
                 }
                 else{
 
@@ -130,15 +153,20 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             }
         });
         String urlBuilder = Constants.urlSensor;
-        urlBuilder =urlBuilder.concat("?stationId="+mStation.getStationId());
+        urlBuilder =urlBuilder.concat("?stationId=" + mStation.getStationId());
         httpAsyncTask.execute(urlBuilder);
+    }
+
+    private void setUpViews(FetchedData data) {
+        airQualityTextValue.setText(data.getAqi().getValue());
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-        if(firstTime)
-            chooseNearestStation(location);
+            mLocation = location;
+            chooseNearestStation();
+            mLocationManager.removeUpdates(this);
     }
 
     @Override
