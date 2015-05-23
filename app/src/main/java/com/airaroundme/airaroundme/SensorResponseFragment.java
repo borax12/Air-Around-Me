@@ -1,6 +1,7 @@
 package com.airaroundme.airaroundme;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
@@ -182,6 +183,9 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
         float scaleFactor = Float.parseFloat(data.getAqi().getValue())/500.0f;
         String remark = data.getAqi().getRemark();
+
+        //setting up the background color
+        mainView.setBackgroundColor(Color.parseColor(data.getAqi().getColor()));
         airQualityTextValue.setText(remark.toUpperCase());
         airQualityValue.setText(data.getAqi().getValue());
 
