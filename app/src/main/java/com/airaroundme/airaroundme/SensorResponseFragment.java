@@ -1,6 +1,7 @@
 package com.airaroundme.airaroundme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -25,11 +26,13 @@ import com.airaroundme.airaroundme.asyncTasks.HttpAsyncTask;
 import com.airaroundme.airaroundme.constants.Constants;
 import com.airaroundme.airaroundme.interfaces.AsyncResponse;
 import com.airaroundme.airaroundme.objects.FetchedData;
+import com.airaroundme.airaroundme.objects.Metrics;
 import com.airaroundme.airaroundme.objects.Station;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -62,6 +65,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private LinearLayout proTipContainer;
     private TextView proTipBulb;
     private TextView proTipText;
+    private RelativeLayout moreButton;
 
     public SensorResponseFragment() {
 
@@ -113,6 +117,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         proTipContainer = (LinearLayout) mainView.findViewById(R.id.pro_tip);
         proTipBulb = (TextView) mainView.findViewById(R.id.pro_tip_bulb);
         proTipText = (TextView) mainView.findViewById(R.id.pro_tip_text);
+        moreButton = (RelativeLayout) mainView.findViewById(R.id.more_button);
 
 
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
@@ -211,7 +216,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(newWidth,originalHeight );
         aqiBar.setLayoutParams(params);
-        params.setMargins(0,0,20,0);
+        params.setMargins(0, 0, 20, 0);
         mainBarContainer.setVisibility(View.VISIBLE);
 
 
@@ -224,6 +229,20 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         animation.setDuration(1000);
 
         proTipContainer.setAnimation(animation);
+
+        moreButton.setVisibility(View.VISIBLE);
+        moreButton.setAnimation(animation);
+
+        final Intent intent = new Intent(getActivity(),DetailedActivity.class);
+         Metrics[] valueArray = data.getMetrics();
+        ArrayList<Metrics> valueList = new ArrayList<>(Arrays.asList(valueArray));
+        intent.putExtra("values",valueList);
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(intent);
+            }
+        });
 
     }
 

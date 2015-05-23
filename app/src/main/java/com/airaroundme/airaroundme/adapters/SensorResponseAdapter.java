@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.airaroundme.airaroundme.R;
+import com.airaroundme.airaroundme.objects.Metrics;
+
+import java.util.ArrayList;
 
 /**
  * Created by borax12 on 10/05/15.
@@ -15,13 +18,16 @@ import com.airaroundme.airaroundme.R;
 public class SensorResponseAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
+    private ArrayList<Metrics> valueList;
 
     private class ViewHolder {
-        TextView textView1;
-        TextView textView2;
+        TextView parameterValue;
+        TextView parameterName;
+        TextView rowDate;
     }
 
-    public SensorResponseAdapter(Context context) {
+    public SensorResponseAdapter(Context context,ArrayList<Metrics> valueList) {
+        this.valueList =valueList;
         inflater = LayoutInflater.from(context);
     }
 
@@ -44,26 +50,18 @@ public class SensorResponseAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if(convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.sensor_response_row, null);
-            holder.textView1 = (TextView) convertView.findViewById(R.id.sensor_response_row_field);
-            holder.textView2 = (TextView) convertView.findViewById(R.id.sensor_response_row_value);
+            convertView = inflater.inflate(R.layout.detailed_row, null);
+            holder.parameterName = (TextView) convertView.findViewById(R.id.parameter_name);
+            holder.parameterValue = (TextView) convertView.findViewById(R.id.parameter_value);
+            holder.rowDate = (TextView) convertView.findViewById(R.id.row_date);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        switch (position){
-            case 0: holder.textView1.setText("CO");
-                break;
-            case 1: holder.textView1.setText("Ozone");
-                break;
-            case 2: holder.textView1.setText("PPM 2.5");
-                break;
-            case 3: holder.textView1.setText("PPM 10");
-                break;
-            case 4: holder.textView1.setText("SO2");
-                break;
-        }
-        holder.textView2.setText(getItem(position));
+        holder.parameterName.setText(valueList.get(position).getName());
+        holder.rowDate.setText(valueList.get(position).getData().getDate());
+        holder.parameterValue.setText(valueList.get(position).getData().getValue());
+
         return convertView;
     }
 }

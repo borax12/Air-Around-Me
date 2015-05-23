@@ -105,4 +105,24 @@
         </LinearLayout>
 
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/more_button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/more_circle"
+        android:layout_height="@dimen/more_circle"
+        android:background="@drawable/circle"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/loader_margin_bottom"
+        android:padding="5dp"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/parameter_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="more"
+            android:textColor="@color/screen_text_inverse"
+            android:textSize="@dimen/more_circle_text"/>
+    </RelativeLayout>
 </RelativeLayout>
