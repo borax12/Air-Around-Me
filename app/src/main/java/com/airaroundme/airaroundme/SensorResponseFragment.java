@@ -81,7 +81,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             chooseNearestStation();
         }
         else{
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,this);
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
     }
 
@@ -99,7 +99,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
         airQualityLine.setTypeface(font);
-        font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Regular.ttf");
+        font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Medium.ttf");
         airQualityTextValue.setTypeface(font);
         return mainView;
     }
@@ -158,7 +158,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     }
 
     private void setUpViews(FetchedData data) {
-        airQualityTextValue.setText(data.getAqi().getValue());
+        airQualityTextValue.setText(data.getAqi().getRemark().toUpperCase());
+        airQualityTextValue.setVisibility(View.VISIBLE);
     }
 
 
