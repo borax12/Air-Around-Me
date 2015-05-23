@@ -7,7 +7,7 @@ public class Metrics {
 	private String avgDesc;
 	private String min;
 	private String max;
-	private Data data[];
+	private Data data;
 	public String getName() {
 		return name;
 	}
@@ -38,10 +38,10 @@ public class Metrics {
 	public void setMax(String max) {
 		this.max = max;
 	}
-	public Data[] getData() {
+	public Data getData() {
 		return data;
 	}
-	public void setData(Data[] data) {
+	public void setData(Data data) {
 		this.data = data;
 	}
 	
