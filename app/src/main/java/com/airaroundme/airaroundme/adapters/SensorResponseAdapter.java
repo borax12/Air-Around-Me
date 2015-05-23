@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.airaroundme.airaroundme.R;
-import com.airaroundme.airaroundme.objects.SensorData;
 
 /**
  * Created by borax12 on 10/05/15.
@@ -16,16 +15,14 @@ import com.airaroundme.airaroundme.objects.SensorData;
 public class SensorResponseAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
-    private SensorData data;
 
     private class ViewHolder {
         TextView textView1;
         TextView textView2;
     }
 
-    public SensorResponseAdapter(Context context, SensorData data) {
+    public SensorResponseAdapter(Context context) {
         inflater = LayoutInflater.from(context);
-        this.data = data;
     }
 
     public int getCount() {
@@ -34,22 +31,8 @@ public class SensorResponseAdapter extends BaseAdapter {
 
     @Override
     public String getItem(int i) {
-        Float value =null;
-        switch(i) {
 
-            case 0: value = data.getCo();
-                break;
-            case 1: value = data.getOzone();
-                break;
-            case 2: value = data.getPpm10();
-                break;
-            case 3: value = data.getPpm25();
-                break;
-            case 4: value = data.getSo2();
-                break;
-            default: return value.toString();
-        }
-        return value.toString();
+        return null;
     }
 
 

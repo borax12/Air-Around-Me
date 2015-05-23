@@ -109,7 +109,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             @Override
             public void processFinish(Object output) {
                 jsonStr = (String)output;
-                //data = new Gson().fromJson(jsonStr,SensorData.class);
+
                 if(jsonStr!=null){
                     progressView.setVisibility(View.GONE);
                 }
