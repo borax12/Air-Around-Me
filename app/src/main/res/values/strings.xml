@@ -10,4 +10,5 @@
     <string name="bulb">&#xf0eb;</string>
     <string name="protip">Here is your Pro Tip!</string>
     <string name="update_on_text">Last updated on</string>
+    <string name="prediction_line">Tomorrow the Expected Air Quality is</string>
 </resources>
