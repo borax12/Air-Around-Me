@@ -6,4 +6,7 @@
     <string name="sensor_response_field">FIELD</string>
     <string name="sensor_response_value">VALUE</string>
     <string name="air_around_me_line">Air Quality around me is</string>
+    <string name="aqi_seperator">/</string>
+    <string name="bulb">&#xf0eb;</string>
+    <string name="protip">Here is your Pro Tip!</string>
 </resources>

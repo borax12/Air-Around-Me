@@ -13,6 +13,7 @@
     <dimen name="air_around_button_text_size">15sp</dimen>
     <dimen name="air_quality_around_me_line">22sp</dimen>
     <dimen name="Air_around_me_quality_size">34sp</dimen>
-    <dimen name="first_screen_margin_left">60dp</dimen>
+    <dimen name="first_screen_margin_left">30dp</dimen>
     <dimen name="loader_margin_bottom">20dp</dimen>
+    <dimen name="air_quality_value">18sp</dimen>
 </resources>

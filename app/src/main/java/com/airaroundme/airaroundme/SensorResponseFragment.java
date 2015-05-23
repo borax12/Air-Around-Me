@@ -12,6 +12,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +55,12 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private TextView airQualityTextValue;
     private Typeface font;
     private Location mLocation;
+    private TextView airQualityValue;
+    private LinearLayout aqiBar;
+    private LinearLayout mainBarContainer;
+    private LinearLayout proTipContainer;
+    private TextView proTipBulb;
+    private TextView proTipText;
 
     public SensorResponseFragment() {
 
@@ -96,11 +106,23 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
         airQualityLine =(TextView) mainView.findViewById(R.id.air_quality_line);
         airQualityTextValue = (TextView)mainView.findViewById(R.id.air_quality_text);
+        airQualityValue = (TextView) mainView.findViewById(R.id.aqi_value);
+        aqiBar = (LinearLayout) mainView.findViewById(R.id.aqi_bar);
+        mainBarContainer = (LinearLayout) mainView.findViewById(R.id.main_bar_container);
+        proTipContainer = (LinearLayout) mainView.findViewById(R.id.pro_tip);
+        proTipBulb = (TextView) mainView.findViewById(R.id.pro_tip_bulb);
+        proTipText = (TextView) mainView.findViewById(R.id.pro_tip_text);
+
 
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
         airQualityLine.setTypeface(font);
+        airQualityValue.setTypeface(font);
+        proTipText.setTypeface(font);
+
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Medium.ttf");
         airQualityTextValue.setTypeface(font);
+        font = Typeface.createFromAsset(getActivity().getAssets(),"fontawesome-webfont.ttf");
+        proTipBulb.setTypeface(font);
         return mainView;
     }
 
@@ -131,7 +153,6 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             public void processFinish(Object output) {
                 jsonStr = (String)output;
                 data = new Gson().fromJson(jsonStr,FetchedData.class);
-
                 if(jsonStr!=null){
                     progressView.setVisibility(View.GONE);
                     setUpViews(data);
@@ -158,8 +179,31 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     }
 
     private void setUpViews(FetchedData data) {
+
+        float scaleFactor = Float.parseFloat(data.getAqi().getValue())/500.0f;
+
         airQualityTextValue.setText(data.getAqi().getRemark().toUpperCase());
+        airQualityValue.setText(data.getAqi().getValue());
         airQualityTextValue.setVisibility(View.VISIBLE);
+        int newWidth = 100+ (int) (aqiBar.getWidth()*scaleFactor);
+        int originalHeight = aqiBar.getHeight();
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(newWidth,originalHeight );
+        aqiBar.setLayoutParams(params);
+        params.setMargins(0,0,20,0);
+        mainBarContainer.setVisibility(View.VISIBLE);
+
+
+        Animation animation = new ScaleAnimation(0.0f,1.0f,1.0f,1.0f,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
+        animation.setDuration(1000);
+        aqiBar.setAnimation(animation);
+
+        proTipContainer.setVisibility(View.VISIBLE);
+        animation = new AlphaAnimation(0.0f,1.0f);
+        animation.setDuration(1000);
+
+        proTipContainer.setAnimation(animation);
+
     }
 
 
