@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/row_padding"
-    android:background="@color/material_blue_grey_800">
+    android:padding="@dimen/row_padding">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TEST"
-            android:textSize="@dimen/air_quality_around_me_line"
+            android:textSize="@dimen/detail_regular"
             android:textColor="@color/main_screen_text"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"/>
@@ -39,11 +38,13 @@
         android:orientation="vertical"
         android:layout_gravity="center">
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/update_on_string"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/detailed_circle"
             android:text="@string/update_on_text"
             android:textSize="@dimen/air_quality_value"
-            android:gravity="center_vertical|right"
+            android:gravity="center_vertical"
+            android:layout_gravity="right"
             android:textColor="@color/main_screen_text"
             />
         <TextView
@@ -51,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="21 Feb 2015"
-            android:textSize="@dimen/air_quality_around_me_line"
+            android:textSize="@dimen/detail_regular"
             android:layout_gravity="right"
             android:textColor="@color/main_screen_text"
             />

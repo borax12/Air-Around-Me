@@ -2,13 +2,16 @@ package com.airaroundme.airaroundme;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.airaroundme.airaroundme.adapters.SensorResponseAdapter;
 import com.airaroundme.airaroundme.objects.Metrics;
+import com.nhaarman.listviewanimations.appearance.simple.SwingLeftInAnimationAdapter;
 
 import java.util.ArrayList;
 
@@ -21,8 +24,10 @@ public class DetailedActivityFragment extends Fragment {
     private View mainView;
     private Context mContext;
     private ArrayList<Metrics> valueList;
+    private SwingLeftInAnimationAdapter leftInAnimationAdapter;
     private SensorResponseAdapter adapter;
-
+    private ListView listView;
+    private String bgColor;
     public DetailedActivityFragment() {
 
     }
@@ -36,7 +41,11 @@ public class DetailedActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_detailed, container, false);
-
+        mainView.setBackgroundColor(Color.parseColor(bgColor));
+        listView = (ListView)mainView.findViewById(R.id.detailed_list);
+        leftInAnimationAdapter.setAbsListView(listView);
+        leftInAnimationAdapter.getViewAnimator().setAnimationDurationMillis(1000);
+        listView.setAdapter(leftInAnimationAdapter);
         return mainView;
     }
 
@@ -45,9 +54,10 @@ public class DetailedActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext=getActivity();
-
         valueList = getActivity().getIntent().getExtras().getParcelableArrayList("values");
+        bgColor = getActivity().getIntent().getExtras().getString("color");
         adapter = new SensorResponseAdapter(getActivity(),valueList);
+        leftInAnimationAdapter = new SwingLeftInAnimationAdapter(adapter);
 
     }
 }

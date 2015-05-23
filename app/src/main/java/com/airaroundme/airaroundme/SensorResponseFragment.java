@@ -236,6 +236,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         final Intent intent = new Intent(getActivity(),DetailedActivity.class);
          Metrics[] valueArray = data.getMetrics();
         ArrayList<Metrics> valueList = new ArrayList<>(Arrays.asList(valueArray));
+        intent.putExtra("color",data.getAqi().getColor());
         intent.putExtra("values",valueList);
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,6 +1,7 @@
 package com.airaroundme.airaroundme.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +20,25 @@ public class SensorResponseAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private ArrayList<Metrics> valueList;
+    private Context mContext;
+    private Typeface font;
+
 
     private class ViewHolder {
         TextView parameterValue;
         TextView parameterName;
         TextView rowDate;
+        TextView updateOnString;
     }
 
     public SensorResponseAdapter(Context context,ArrayList<Metrics> valueList) {
         this.valueList =valueList;
         inflater = LayoutInflater.from(context);
+        mContext=context;
     }
 
     public int getCount() {
-        return 5;
+        return valueList.size();
     }
 
     @Override
@@ -54,6 +60,16 @@ public class SensorResponseAdapter extends BaseAdapter {
             holder.parameterName = (TextView) convertView.findViewById(R.id.parameter_name);
             holder.parameterValue = (TextView) convertView.findViewById(R.id.parameter_value);
             holder.rowDate = (TextView) convertView.findViewById(R.id.row_date);
+            holder.updateOnString = (TextView) convertView.findViewById(R.id.update_on_string);
+
+            font = Typeface.createFromAsset(mContext.getAssets(), "Roboto-Regular.ttf");
+            holder.parameterName.setTypeface(font);
+            holder.rowDate.setTypeface(font);
+
+            font = Typeface.createFromAsset(mContext.getAssets(), "Roboto-Light.ttf");
+            holder.parameterValue.setTypeface(font);
+            holder.updateOnString.setTypeface(font);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
