@@ -16,11 +16,12 @@
     <dimen name="first_screen_margin_left">30dp</dimen>
     <dimen name="loader_margin_bottom">20dp</dimen>
     <dimen name="air_quality_value">18sp</dimen>
-    <dimen name="detailed_circle">60dp</dimen>
+    <dimen name="detailed_circle">70dp</dimen>
     <dimen name="row_padding">10dp</dimen>
     <dimen name="more_circle">60dp</dimen>
     <dimen name="more_circle_text">15sp</dimen>
     <dimen name="detail_regular">18sp</dimen>
     <dimen name="more_button_size">40dp</dimen>
     <dimen name="response_buttons_text_padding">8dp</dimen>
+    <dimen name="circle_param_value">15sp</dimen>
 </resources>

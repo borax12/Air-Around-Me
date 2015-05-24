@@ -76,7 +76,7 @@ public class SensorResponseAdapter extends BaseAdapter {
         }
         holder.parameterName.setText(valueList.get(position).getName());
         holder.rowDate.setText(valueList.get(position).getData().getDate());
-        holder.parameterValue.setText(valueList.get(position).getData().getValue());
+        holder.parameterValue.setText(valueList.get(position).getData().getValue()+"/500");
 
         return convertView;
     }

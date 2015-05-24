@@ -2,7 +2,6 @@ package com.airaroundme.airaroundme;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,7 @@ public class DetailedActivityFragment extends Fragment {
     private SwingLeftInAnimationAdapter leftInAnimationAdapter;
     private SensorResponseAdapter adapter;
     private ListView listView;
-    private String bgColor;
+    private int bgColor;
     public DetailedActivityFragment() {
 
     }
@@ -41,7 +40,7 @@ public class DetailedActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_detailed, container, false);
-        mainView.setBackgroundColor(Color.parseColor(bgColor));
+        mainView.setBackgroundColor(bgColor);
         listView = (ListView)mainView.findViewById(R.id.detailed_list);
         leftInAnimationAdapter.setAbsListView(listView);
         leftInAnimationAdapter.getViewAnimator().setAnimationDurationMillis(800);
@@ -55,7 +54,7 @@ public class DetailedActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mContext=getActivity();
         valueList = getActivity().getIntent().getExtras().getParcelableArrayList("values");
-        bgColor = getActivity().getIntent().getExtras().getString("color");
+        bgColor = getActivity().getIntent().getExtras().getInt("color");
         adapter = new SensorResponseAdapter(getActivity(),valueList);
         leftInAnimationAdapter = new SwingLeftInAnimationAdapter(adapter);
 

@@ -11,7 +11,8 @@
             android:layout_width="@dimen/detailed_circle"
             android:layout_height="@dimen/detailed_circle"
             android:background="@drawable/circle"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:padding="10dp">
             <TextView
                 android:id="@+id/parameter_value"
                 android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
                 android:layout_centerInParent="true"
                 android:text="21"
                 android:textColor="@color/screen_text_inverse"
-                android:textSize="@dimen/air_quality_value"/>
+                android:textSize="@dimen/circle_param_value"/>
         </RelativeLayout>
 
         <TextView
