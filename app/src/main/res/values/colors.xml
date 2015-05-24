@@ -10,4 +10,10 @@
     <color name="screen_text_inverse">#000000</color>
     <color name="detailed_bg">#000000</color>
     <color name="gray">#ff373737</color>
+    <color name="good">#00B050</color>
+    <color name="satisfactory">#92D050</color>
+    <color name="moderate">#ffc2a81f</color>
+    <color name="poor">#ffff7a03</color>
+    <color name="verypoor">#ffce0a02</color>
+    <color name="severe">#ff9d0000</color>
 </resources>

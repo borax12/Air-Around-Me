@@ -2,7 +2,6 @@ package com.airaroundme.airaroundme;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
@@ -124,7 +123,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     public void getCurrentLocation() {
         mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     @Override
@@ -212,7 +211,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             }
         });
         String urlBuilder = Constants.urlSensor;
-        urlBuilder =urlBuilder.concat("?stationId=" + mStation.getStationId());
+        urlBuilder =urlBuilder.concat("?stationId="+mStation.getStationId());
         httpAsyncTask.execute(urlBuilder);
     }
 
@@ -222,22 +221,35 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         String remark = data.getAqi().getRemark();
 
         //setting up the background color
-        mainView.setBackgroundColor(Color.parseColor(data.getAqi().getColor()));
         airQualityTextValue.setText(remark.toUpperCase());
         airQualityValue.setText(data.getAqi().getValue());
 
+        int color=0;
+
         switch (remark){
             case "Good": proTipText.setText("Go take a walk");
+                color = getActivity().getResources().getColor(R.color.good);
+                mainView.setBackgroundColor(color);
                 break;
             case "Satisfactory": proTipText.setText("Minor Breathing discomfort for Sensitive People");
+                color = getActivity().getResources().getColor(R.color.satisfactory);
+                mainView.setBackgroundColor(color);
                 break;
             case "Moderate": proTipText.setText("Lungs Disease Patients beware");
+                color = getActivity().getResources().getColor(R.color.moderate);
+                mainView.setBackgroundColor(color);
                 break;
             case "Poor": proTipText.setText("Breathing discomfort on Prolonged Exposure");
+                color = getActivity().getResources().getColor(R.color.poor);
+                mainView.setBackgroundColor(color);
                 break;
             case "Very Poor": proTipText.setText("Respiratory Illness on Prolonged Exposure");
+                color = getActivity().getResources().getColor(R.color.verypoor);
+                mainView.setBackgroundColor(color);
                 break;
             case "Severe": proTipText.setText("Time to get a Gas Mask");
+                color = getActivity().getResources().getColor(R.color.severe);
+                mainView.setBackgroundColor(color);
                 break;
 
         }
@@ -274,7 +286,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
          Metrics[] valueArray = data.getMetrics();
         ArrayList<Metrics> valueList = new ArrayList<>(Arrays.asList(valueArray));
 
-        intent.putExtra("color",data.getAqi().getColor());
+        intent.putExtra("color",color);
         intent.putExtra("values",valueList);
         intent_prediction.putExtra("stationId",mStation.getStationId());
 

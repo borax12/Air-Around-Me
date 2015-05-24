@@ -1,7 +1,6 @@
 package com.airaroundme.airaroundme;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -155,22 +154,28 @@ public class PredictionResponseFragment extends Fragment{
 
         airQualityLine.setVisibility(View.VISIBLE);
         //setting up the background color
-        mainView.setBackgroundColor(Color.parseColor(data.getColor()));
+
         airQualityTextValue.setText(remark.toUpperCase());
         airQualityValue.setText(data.getValue());
 
         switch (remark){
             case "Good": proTipText.setText("Go take a walk");
+                mainView.setBackgroundColor(getActivity().getResources().getColor(R.color.good));
                 break;
             case "Satisfactory": proTipText.setText("Minor Breathing discomfort for Sensitive People");
+                mainView.setBackgroundColor(getActivity().getResources().getColor(R.color.satisfactory));
                 break;
             case "Moderate": proTipText.setText("Lungs Disease Patients beware");
+                mainView.setBackgroundColor(getActivity().getResources().getColor(R.color.moderate));
                 break;
             case "Poor": proTipText.setText("Breathing discomfort on Prolonged Exposure");
+                mainView.setBackgroundColor(getActivity().getResources().getColor(R.color.poor));
                 break;
             case "Very Poor": proTipText.setText("Respiratory Illness on Prolonged Exposure");
+                mainView.setBackgroundColor(getActivity().getResources().getColor(R.color.verypoor));
                 break;
             case "Severe": proTipText.setText("Time to get a Gas Mask");
+                mainView.setBackgroundColor(getActivity().getResources().getColor(R.color.severe));
                 break;
 
         }
