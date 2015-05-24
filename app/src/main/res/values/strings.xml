@@ -8,7 +8,12 @@
     <string name="air_around_me_line">Air Quality around me is</string>
     <string name="aqi_seperator">/</string>
     <string name="bulb">&#xf0eb;</string>
+    <string name="information">&#xf05a;</string>
     <string name="protip">Here is your Pro Tip!</string>
     <string name="update_on_text">Last updated on</string>
     <string name="prediction_line">Tomorrow the Expected Air Quality is</string>
+    <string name="title_activity_info">InfoActivity</string>
+    <string name="help_text" ><![CDATA[
+    <p>An <strong>Air Quality Index </strong>is a number used by Goverment Agencies to communicate to the public about how polluted the air is.</p>
+    <p>The various air quality categories are color coded. Your Apps Backgroud is set to the specific color</p>]]></string>
 </resources>

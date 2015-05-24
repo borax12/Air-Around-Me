@@ -68,6 +68,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private TextView proTipText;
     private Button moreButton;
     private Button predictionButton;
+    private TextView infoButton;
 
     public SensorResponseFragment() {
 
@@ -123,12 +124,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     public void getCurrentLocation() {
         mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if(mLocation!=null){
-            chooseNearestStation();
-        }
-        else{
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     @Override
@@ -150,6 +146,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         proTipText = (TextView) mainView.findViewById(R.id.pro_tip_text);
         moreButton = (Button) mainView.findViewById(R.id.more_button);
         predictionButton = (Button) mainView.findViewById(R.id.prediction_button);
+        infoButton =(TextView) mainView.findViewById(R.id.info_button);
 
 
         font = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
@@ -163,6 +160,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         airQualityTextValue.setTypeface(font);
         font = Typeface.createFromAsset(getActivity().getAssets(),"fontawesome-webfont.ttf");
         proTipBulb.setTypeface(font);
+        infoButton.setTypeface(font);
         return mainView;
     }
 
@@ -271,6 +269,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
         final Intent intent = new Intent(getActivity(),DetailedActivity.class);
         final Intent intent_prediction = new Intent(getActivity(),PredictionResponseActivity.class);
+        final Intent intent_help = new Intent(getActivity(),InfoActivity.class);
 
          Metrics[] valueArray = data.getMetrics();
         ArrayList<Metrics> valueList = new ArrayList<>(Arrays.asList(valueArray));
@@ -290,6 +289,13 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             @Override
             public void onClick(View v) {
                 getActivity().startActivity(intent_prediction);
+            }
+        });
+
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(intent_help);
             }
         });
 

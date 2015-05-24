@@ -106,7 +106,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
@@ -136,6 +136,15 @@
             android:layout_marginLeft="10dp"
             android:elevation="0dp"
             android:visibility="gone"/>
+        <TextView
+            android:id="@+id/info_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/information"
+            android:textColor="@color/main_screen_text"
+            android:textSize="@dimen/air_quality_around_me_line"
+            android:layout_gravity="right"
+            android:gravity="center_vertical|right"/>
     </LinearLayout>
 
 </RelativeLayout>

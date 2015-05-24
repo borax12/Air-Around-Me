@@ -9,4 +9,5 @@
     <color name="main_screen_text">#FFFFFF</color>
     <color name="screen_text_inverse">#000000</color>
     <color name="detailed_bg">#000000</color>
+    <color name="gray">#ff373737</color>
 </resources>
