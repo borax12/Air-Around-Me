@@ -33,6 +33,10 @@ import com.airaroundme.airaroundme.objects.Metrics;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.Gson;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -107,21 +111,22 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     public void getCurrentLocation() {
 /*        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);*/
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);*/
 
         mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria locationCritera = new Criteria();
-        locationCritera.setAccuracy(Criteria.ACCURACY_FINE);
+        locationCritera.setAccuracy(Criteria.ACCURACY_COARSE);
         locationCritera.setAltitudeRequired(false);
         locationCritera.setBearingRequired(false);
         locationCritera.setCostAllowed(true);
         locationCritera.setPowerRequirement(Criteria.NO_REQUIREMENT);
 
         String providerName = mLocationManager.getBestProvider(locationCritera, true);
-
+        appendLog("Provider Name is : = "+providerName);
+        appendLog("Provider Name is Enabled : = "+mLocationManager.isProviderEnabled(providerName));
         if (!providerName.equals("passive") && mLocationManager.isProviderEnabled(providerName)) {
             // Provider is enabled
-            mLocationManager.requestLocationUpdates(providerName, 0, 0, this);
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         } else {
             // Provider not enabled, prompt user to enable it
             Toast.makeText(getActivity(), R.string.please_turn_on_gps, Toast.LENGTH_LONG).show();
@@ -171,7 +176,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         HttpAsyncTask httpAsyncTask = new HttpAsyncTask(new AsyncResponse() {
             @Override
             public void processFinish(Object output) {
-                Log.d("SensorResponse","Response Received");
+                appendLog("Response Received");
                 jsonStr = (String)output;
                 data = new Gson().fromJson(jsonStr,FetchedData.class);
                 if(jsonStr!=null){
@@ -196,7 +201,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         });
         String urlBuilder = Constants.urlSensor;
         urlBuilder =urlBuilder.concat("?"+"lon="+mLocation.getLongitude()+"&"+"lat="+mLocation.getLatitude());
-        Log.d("SensorResponse","Request Made");
+
+        appendLog("Request Made");
         httpAsyncTask.execute(urlBuilder);
 
     }
@@ -305,6 +311,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onLocationChanged(Location location) {
             mLocation = location;
+            appendLog("Location Retrieved");
             getResponseFromSensor();
             mLocationManager.removeUpdates(this);
     }
@@ -322,5 +329,35 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    public void appendLog(String text)
+    {
+        File logFile = new File("sdcard/log.file");
+        if (!logFile.exists())
+        {
+            try
+            {
+                logFile.createNewFile();
+            }
+            catch (IOException e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        try
+        {
+            //BufferedWriter for performance, true to set append to file flag
+            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
+            buf.append(text);
+            buf.newLine();
+            buf.close();
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
