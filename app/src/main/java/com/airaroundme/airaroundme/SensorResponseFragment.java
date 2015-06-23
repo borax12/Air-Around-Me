@@ -3,13 +3,16 @@ package com.airaroundme.airaroundme;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +71,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onResume() {
         super.onResume();
+        getCurrentLocation();
         if(data!=null){
             float scaleFactor = Float.parseFloat(data.getAqi().getValue())/500.0f;
             String remark = data.getAqi().getRemark();
@@ -97,14 +101,33 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getCurrentLocation();
+        Log.d("SensorResponse", "Screen Made");
     }
 
     public void getCurrentLocation() {
-        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+/*        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);*/
+
+        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria locationCritera = new Criteria();
+        locationCritera.setAccuracy(Criteria.ACCURACY_FINE);
+        locationCritera.setAltitudeRequired(false);
+        locationCritera.setBearingRequired(false);
+        locationCritera.setCostAllowed(true);
+        locationCritera.setPowerRequirement(Criteria.NO_REQUIREMENT);
+
+        String providerName = mLocationManager.getBestProvider(locationCritera, true);
+
+        if (!providerName.equals("passive") && mLocationManager.isProviderEnabled(providerName)) {
+            // Provider is enabled
+            mLocationManager.requestLocationUpdates(providerName, 0, 0, this);
+        } else {
+            // Provider not enabled, prompt user to enable it
+            Toast.makeText(getActivity(), R.string.please_turn_on_gps, Toast.LENGTH_LONG).show();
+            Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(myIntent);
+        }
     }
 
     @Override
@@ -148,6 +171,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         HttpAsyncTask httpAsyncTask = new HttpAsyncTask(new AsyncResponse() {
             @Override
             public void processFinish(Object output) {
+                Log.d("SensorResponse","Response Received");
                 jsonStr = (String)output;
                 data = new Gson().fromJson(jsonStr,FetchedData.class);
                 if(jsonStr!=null){
@@ -172,7 +196,9 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         });
         String urlBuilder = Constants.urlSensor;
         urlBuilder =urlBuilder.concat("?"+"lon="+mLocation.getLongitude()+"&"+"lat="+mLocation.getLatitude());
+        Log.d("SensorResponse","Request Made");
         httpAsyncTask.execute(urlBuilder);
+
     }
 
     private void setUpViews(FetchedData data) {
@@ -235,7 +261,8 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         proTipContainer.setAnimation(animation);
 
         moreButton.setVisibility(View.VISIBLE);
-        predictionButton.setVisibility(View.VISIBLE);
+        //TODO: Make the visibility to visible when prediction part of app is done
+        predictionButton.setVisibility(View.GONE);
         moreButton.setAnimation(animation);
         predictionButton.setAnimation(animation);
 

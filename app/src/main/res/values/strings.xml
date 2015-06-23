@@ -16,4 +16,5 @@
     <string name="help_text" ><![CDATA[
     <p>An <strong>Air Quality Index </strong>is a number used by Goverment Agencies to communicate to the public about how polluted the air is.</p>
     <p>The various air quality categories are color coded. Your Apps Backgroud is set to the specific color</p>]]></string>
+    <string name="please_turn_on_gps">Please Enable Location Service</string>
 </resources>
