@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.airaroundme.airaroundme.R;
+import com.airaroundme.airaroundme.objects.Data;
 import com.airaroundme.airaroundme.objects.Metrics;
 
 import java.util.ArrayList;
@@ -75,8 +76,9 @@ public class SensorResponseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.parameterName.setText(valueList.get(position).getName());
-        holder.rowDate.setText(valueList.get(position).getData().getDate());
-        holder.parameterValue.setText(valueList.get(position).getData().getValue()+"/500");
+        Data[] lastFetchedData = valueList.get(position).getData();
+        holder.rowDate.setText(lastFetchedData[lastFetchedData.length - 1].getDate());
+        holder.parameterValue.setText(lastFetchedData[lastFetchedData.length-1].getValue()+"/500");
 
         return convertView;
     }

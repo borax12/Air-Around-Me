@@ -27,15 +27,11 @@ import com.airaroundme.airaroundme.constants.Constants;
 import com.airaroundme.airaroundme.interfaces.AsyncResponse;
 import com.airaroundme.airaroundme.objects.FetchedData;
 import com.airaroundme.airaroundme.objects.Metrics;
-import com.airaroundme.airaroundme.objects.Station;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 
 /**
@@ -49,10 +45,6 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private String jsonStr;
     private CircularProgressView progressView;
     private LocationManager mLocationManager;
-    private List<Station> stationList;
-    private int SIZE=3;
-    private TreeMap<Float,Station> stationToDistance = new TreeMap<Float,Station>();
-    private Station mStation;
     private boolean firstTime=true;
     private FetchedData data;
     private TextView airQualityLine;
@@ -105,17 +97,6 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        stationList = new ArrayList<>(SIZE);
-
-        //Creating the stations
-        Station stationBTM = new Station(808,12.912811,77.609218);
-        Station stationPeenya = new Station(809,13.033836,77.513245);
-        Station stationBSSW = new Station(810,12.938932,77.697271 );
-
-        //adding to the list
-        stationList.add(stationBTM);
-        stationList.add(stationPeenya);
-        stationList.add(stationBSSW);
 
         getCurrentLocation();
     }
@@ -163,27 +144,6 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         return mainView;
     }
 
-    public void chooseNearestStation() {
-
-        firstTime=false;
-        Double currentLat = mLocation.getLatitude();
-        Double currentLong = mLocation.getLongitude();
-
-        float results[] = new float[2];
-
-        for(Station station:stationList){
-            Location.distanceBetween(currentLat, currentLong, station.getLatitude(), station.getLongitude(), results);
-            stationToDistance.put(results[0],station);
-        }
-
-        Map.Entry<Float,Station> entry = stationToDistance.firstEntry();
-
-        mStation = entry.getValue();
-
-        getResponseFromSensor();
-
-    }
-
     private void getResponseFromSensor() {
         HttpAsyncTask httpAsyncTask = new HttpAsyncTask(new AsyncResponse() {
             @Override
@@ -211,7 +171,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             }
         });
         String urlBuilder = Constants.urlSensor;
-        urlBuilder =urlBuilder.concat("?stationId="+mStation.getStationId());
+        urlBuilder =urlBuilder.concat("?"+"lon="+mLocation.getLongitude()+"&"+"lat="+mLocation.getLatitude());
         httpAsyncTask.execute(urlBuilder);
     }
 
@@ -288,7 +248,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
 
         intent.putExtra("color",color);
         intent.putExtra("values",valueList);
-        intent_prediction.putExtra("stationId",mStation.getStationId());
+        //intent_prediction.putExtra("stationId",mStation.getStationId());
 
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,7 +278,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onLocationChanged(Location location) {
             mLocation = location;
-            chooseNearestStation();
+            getResponseFromSensor();
             mLocationManager.removeUpdates(this);
     }
 
