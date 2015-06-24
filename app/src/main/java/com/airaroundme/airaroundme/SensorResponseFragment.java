@@ -122,9 +122,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         locationCritera.setPowerRequirement(Criteria.NO_REQUIREMENT);
 
         String providerName = mLocationManager.getBestProvider(locationCritera, true);
-        appendLog("Provider Name is : = "+providerName);
-        appendLog("Provider Name is Enabled : = "+mLocationManager.isProviderEnabled(providerName));
-        if (!providerName.equals("passive") && mLocationManager.isProviderEnabled(providerName)) {
+        if (providerName!=null && mLocationManager.isProviderEnabled(providerName)) {
             // Provider is enabled
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         } else {
@@ -179,7 +177,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
                 appendLog("Response Received");
                 jsonStr = (String)output;
                 data = new Gson().fromJson(jsonStr,FetchedData.class);
-                if(jsonStr!=null){
+                if(data!=null){
                     progressView.setVisibility(View.GONE);
                     setUpViews(data);
                 }
