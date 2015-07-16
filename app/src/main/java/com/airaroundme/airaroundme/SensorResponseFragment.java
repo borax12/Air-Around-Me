@@ -67,6 +67,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     private Button moreButton;
     private Button predictionButton;
     private TextView infoButton;
+    private boolean locationRecieved=false;
 
     public SensorResponseFragment() {
 
@@ -75,7 +76,9 @@ public class SensorResponseFragment extends Fragment implements LocationListener
     @Override
     public void onResume() {
         super.onResume();
-        getCurrentLocation();
+        if(mLocation==null){
+            getCurrentLocation();
+        }
         if(data!=null){
             float scaleFactor = Float.parseFloat(data.getAqi().getValue())/500.0f;
             String remark = data.getAqi().getRemark();
@@ -122,7 +125,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
         locationCritera.setPowerRequirement(Criteria.NO_REQUIREMENT);
 
         String providerName = mLocationManager.getBestProvider(locationCritera, true);
-        if (providerName!=null && mLocationManager.isProviderEnabled(providerName)) {
+        if (providerName!=null && mLocationManager.isProviderEnabled(providerName) && !locationRecieved) {
             // Provider is enabled
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         } else {
@@ -312,6 +315,7 @@ public class SensorResponseFragment extends Fragment implements LocationListener
             appendLog("Location Retrieved");
             getResponseFromSensor();
             mLocationManager.removeUpdates(this);
+            locationRecieved = true;
     }
 
     @Override
